@@ -15,3 +15,5 @@ Collate:
     'before-inside-parens.R'
     'separate-wider-parens.R'
     'utils.R'
+URL: https://github.com/lhdjung/numberstrings
+BugReports: https://github.com/lhdjung/numberstrings/issues
