@@ -12,38 +12,38 @@ check_length_parens_sep <- function(sep) {
 
 
 
-#' Match the `sep` keyword to actual separators
+#' Match the `delim` keyword to actual separators
 #'
-#' @description `translate_length1_sep_keywords()` is called within
-#'   `split_by_parens()` to replace the legal keywords `"parens"`, `"brackets"`,
-#'   or `"braces"` to the characters they describe.
+#' @description `translate_delim_to_length2_seps()` is called within
+#'   `separate_wider_parens()` to replace the legal keywords `"parens"`,
+#'   `"brackets"`, or `"braces"` to the characters they describe.
 #'
-#'   A length-2 `sep` object is returned as it is because it is meant to contain
-#'   actual (custom) separators, not a keyword. If `sep` is neither length 2 nor
-#'   any of the keywords from above, an error is thrown.
+#'   A length-2 `delim` object is returned as it is because it is meant to
+#'   contain actual (custom) separators, not a keyword. If `delim` is neither
+#'   length 2 nor any of the keywords from above, an error is thrown.
 #'
-#' @param sep String (length 1 or 2).
+#' @param delim String (length 1 or 2).
 #'
 #' @return String (length 1 or 2).
 #'
 #' @noRd
-translate_length1_sep_keywords <- function(sep) {
-  check_length_parens_sep(sep)
-  if (length(sep) == 2L) {
-    sep
-  } else if (any(sep == c("parens", "(", "\\("))) {
+translate_delim_to_length2_seps <- function(delim) {
+  check_length_parens_sep(delim)
+  if (length(delim) == 2L) {
+    delim
+  } else if (any(delim == c("parens", "(", "\\("))) {
     c("\\(", "\\)")
-  } else if (any(sep == c("brackets", "[", "\\["))) {
+  } else if (any(delim == c("brackets", "[", "\\["))) {
     c("\\[", "\\]")
-  } else if (any(sep == c("braces", "{", "\\{"))) {
+  } else if (any(delim == c("braces", "{", "\\{"))) {
     c("\\{", "\\}")
   } else {
     cli::cli_abort(c(
-      "!" = "`sep` must be either \"parens\", \"brackets\", or \\
+      "!" = "`delim` must be either \"parens\", \"brackets\", or \\
         \"braces\"; or \"(\", \"[\", or \"{{\".",
-      "x" = "It was given as {wrap_in_quotes_or_backticks(sep)}.",
+      "x" = "It was given as {wrap_in_quotes_or_backticks(delim)}.",
       "i" = "Alternatively, choose two custom separators; e.g., \\
-        `sep = c(\"<\", \">\")` for strings such as \"2.65 <0.27>\"."
+        `delim = c(\"<\", \">\")` for strings such as \"2.65 <0.27>\"."
     ))
   }
 }
@@ -91,7 +91,7 @@ proto_split_parens <- function(string, sep = "parens") {
     sep_open  <- sep[1L]
     sep_close <- sep[2L]
   } else {
-    separators <- translate_length1_sep_keywords(sep)
+    separators <- translate_delim_to_length2_seps(sep)
     sep_open   <- separators[1L]
     sep_close  <- separators[2L]
   }
