@@ -70,21 +70,6 @@ warn_wrong_columns_selected <- function(names_wrong_cols,
 }
 
 
-# This one is only used within `split_by_parens()`:
-message_sep_if_cols_excluded <- function(sep) {
-  if (length(sep) == 2L) {
-    msg_seps <- wrap_in_quotes(sep)
-    glue::glue("{msg_seps[1L]} and {msg_seps[2L]}")
-  } else if (sep == "parens") {
-    "i.e., parentheses"
-  } else if (sep == "brackets") {
-    "i.e., square brackets"
-  } else if (sep == "braces") {
-    "i.e., curly braces"
-  }
-}
-
-
 proto_split_parens <- function(string, sep = "parens") {
 
   if (length(sep) == 2L) {

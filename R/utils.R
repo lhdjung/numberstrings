@@ -126,9 +126,7 @@ check_new_args_without_dots <- function(data, dots, old_args, name_fn) {
   # Error 1: Column names are selected via the dots, `...`.
   offenders1 <- dots_names[dots_names %in% colnames(data)]
   if (length(offenders1) > 0L) {
-    if (length(offenders1) == 1L) {
-      msg_cols <- glue::glue("{offenders1}")
-    } else {
+    if (length(offenders1) != 1L) {
       msg_cols <- stringr::str_flatten(as.character(offenders1), ", ")
       msg_cols <- paste0("c(", msg_cols, ")")
     }
